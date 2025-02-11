@@ -1,11 +1,7 @@
-# For playback: "type" (not remandatory if the command "play") and "source" are mandatory.
-# For record: "type", "source"(or/and "pub_pcm"), "audio_info.channels", "audio_info.sample_rate",
-# and "audio_info.sample_format" are mandatory.
-
 AudioInfo audio_info
-# Stream operations (eg. "play", "create", "start", "stop", "release", "mute", "get-buildin-sound")
-# "play" command: one touch playback, client doesn't need manage the stream's lifecycle (create/
-# start/stop/release), it handle by Audio Service.
+# Stream operations (eg. "play", "create", "start", "stop", "release", "mute", "get-buildin-sound").
+# "play": one touch playback, client doesn't need manage the stream's lifecycle (create/
+#  start/stop/release), it handle by Audio Service.
 string command
 # Stream type (eg. "playback", "record")
 string type
@@ -18,9 +14,13 @@ int8 repeat
 # The handle indicate the stream created by Audio Service when command is "create",
 # client controls (eg. start/mute/stop/release) the stream by it.
 uint32 stream_handle
-# Whether publish pcm data on topic (name is /qrb_audiodata)
-# when recording. (true:yes, false:no)
+# For streaming playback:
+#  The streaming audio data subscribes from a topic, it can be specified using topic_name.
+# For record:
+#  Whether publish pcm data on a topic when recording (true:yes, false:no).
+#  The default topic name is "qrb_audiodata", but it can be specified using topic_name.
 bool pub_pcm
+string topic_name
 # Need to specify it when requesting the "mute" command.
 bool mute
 ---
